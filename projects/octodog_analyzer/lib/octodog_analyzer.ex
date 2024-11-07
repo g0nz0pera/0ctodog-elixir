@@ -27,9 +27,28 @@ defmodule OctodogAnalyzer do
       {:ok, content} ->
         IO.puts("File Successfully Read!. Ready to process content!")
         # Placeholder for the next processing steps
-        #process_content(content)
+        process_content(content)
         {:error, reason} ->
           IO.puts("Error reading the file: #{reason}")
     end
+  end
+
+  defp process_content(content) do
+    # Split the content by lines and count
+    lines = String.split(content, "\n", trim: true)
+    line_count = length(lines)
+
+    #Split the content by whitespaces to get words and count
+    words = Enum.flat_map(lines, &String.split(&1))
+    word_count = length(words)
+
+    # Count all characters, including spaces
+    char_count = String.length(content)
+
+    # Display Result
+    IO.puts("Analysis Complete:")
+    IO.puts("Line Count: #{line_count}")
+    IO.puts("Word count: #{word_count}")
+    IO.puts("Character Count: #{char_count}")
   end
 end
