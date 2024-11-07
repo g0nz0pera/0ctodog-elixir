@@ -10,14 +10,26 @@ defmodule OctodogAnalyzer do
     check_file(file_path)
   end
 
-  def check_file(file_path) do
+  defp check_file(file_path) do
     cond do
       file_path == "" ->
-        IO.puts("You must enter a file path to continue.")
+        IO.puts("No file path provided. Please enter a valid path.")
       File.exists?(file_path) ->
         IO.puts("File found! Ready to Analyze.")
+        analyze_file(file_path)
       true ->
-        IO.puts("The file path you entered does not exist. Please try again.")
+        IO.puts("The file was not found. Please Check and try again.")
+    end
+  end
+
+  defp analyze_file(file_path) do
+    case File.read(file_path) do
+      {:ok, content} ->
+        IO.puts("File Successfully Read!. Ready to process content!")
+        # Placeholder for the next processing steps
+        #process_content(content)
+        {:error, reason} ->
+          IO.puts("Error reading the file: #{reason}")
     end
   end
 end
